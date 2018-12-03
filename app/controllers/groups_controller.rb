@@ -9,8 +9,15 @@ class GroupsController < ApplicationController
   end
 
   def create
-    group = Group.create(group_params)
-    render json: group
+
+    group = Group.new(group_params)
+    
+    if group.save
+      render json: group
+    else
+      render json: group.errors.full_messages
+    end
+
   end
 
   def update
