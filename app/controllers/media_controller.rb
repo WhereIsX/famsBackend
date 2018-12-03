@@ -1,14 +1,12 @@
 class MediaController < ApplicationController
 
   def create
-
     medium = Medium.create(medium_params)
     if medium.valid?
       render json: medium
     else
       render json: medium.errors.full_messages
     end
-
   end
 
   def update
