@@ -3,18 +3,12 @@ class UsersController < ApplicationController
   def create
 
     user = User.create(user_params)
-    
     if user.valid?
       render json: {id: user.id, username: user.username}
     else
       render json: user.errors.full_messages, status: 422
     end
 
-  end
-
-
-  def update
-    render json: User.update(params[:id], user_params)
   end
 
   def destroy

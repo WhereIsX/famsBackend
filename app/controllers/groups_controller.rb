@@ -12,6 +12,7 @@ class GroupsController < ApplicationController
 
     group = Group.create(group_params)
     if group.valid?
+      Member.create(group_id: group.id, user_id: user.id, authority: 1)
       render json: group
     else
       render json: group.errors.full_messages
@@ -20,7 +21,12 @@ class GroupsController < ApplicationController
   end
 
   def update
-    render json: Group.update(params[:id], group_params)
+    group = Group.update(params[:id], group_params)
+    if group.valid?
+      render json: group
+    else
+      render json: group.errors.full_messages
+    end
   end
 
   def destroy

@@ -1,13 +1,22 @@
 class MediaController < ApplicationController
 
   def create
+
     medium = Medium.create(medium_params)
-    render json: medium
+    if medium.valid?
+      render json: medium
+    else
+      render json: medium.errors.full_messages
+    end
+
   end
 
   def update
-    if Medium.find(params[:id]).update(medium_params)
-      render json: (Medium.find(params[:id]))
+    medium = Medium.update(params[:id], medium_params)
+    if medium.valid?
+      render json: medium
+    else
+      render json: medium.errors.full_messages
     end
   end
 
@@ -19,7 +28,7 @@ class MediaController < ApplicationController
   private
 
   def medium_params
-    params.permit(:user_id, :group_id, :content)
+    params.permit(:user_id, :group_id, :title, :image)
   end
 
 end
