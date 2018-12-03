@@ -24,7 +24,8 @@ ActiveRecord::Schema.define(version: 2018_12_02_211421) do
   create_table "media", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "group_id"
-    t.text "content"
+    t.text "title"
+    t.text "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_media_on_group_id"
