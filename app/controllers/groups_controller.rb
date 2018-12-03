@@ -10,9 +10,8 @@ class GroupsController < ApplicationController
 
   def create
 
-    group = Group.new(group_params)
-
-    if group.save
+    group = Group.create(group_params)
+    if group.valid?
       render json: group
     else
       render json: group.errors.full_messages
@@ -21,14 +20,11 @@ class GroupsController < ApplicationController
   end
 
   def update
-    if Group.find(params[:id]).update(group_params)
-      render json: (Group.find(params[:id]))
-    end
+    render json: Group.update(params[:id], group_params)
   end
 
   def destroy
-    group = Group.destroy(params[:id])
-    render json: group
+    render json: Group.destroy(params[:id])
   end
 
   private
