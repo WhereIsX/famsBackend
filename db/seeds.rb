@@ -7,23 +7,23 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-yana = User.create(username: 'yana', password: 'pass', name: 'yana' )
-chris = User.create(username: 'chris', password: 'pass', name: 'chris' )
-michelle = User.create(username: 'michelle', password: 'pass', name: 'michelle')
+# yana = User.create(username: 'yana', password_digest: 'pass', name: 'yana' )
+# chris = User.create(username: 'chris', password_digest: 'pass', name: 'chris' )
+# michelle = User.create(username: 'michelle', password_digest: 'pass', name: 'michelle')
 
 group_a = Group.create(name: 'alices in wonderland')
 group_b = Group.create(name: 'the breakfast club')
 
-yana_a = Member.create(user_id: yana.id, group_id: group_a.id, authority: 1)
-yana_b = Member.create(user_id: yana.id, group_id: group_b.id, authority: 1)
-chris_a = Member.create(user_id: chris.id, group_id: group_a.id, authority: 2)
-# chris_b = Member.create(user_id: chris.id, group_id: group_a.id, authority: 1)
-# michelle_a = Member.create(user_id: michelle.id, group_id: group_a.id, authority: 1)
-michelle_b = Member.create(user_id: michelle.id, group_id: group_b.id, authority: 2)
-
-Medium.create(user_id: yana.id, group_id: group_a.id, content: 'alices are the best')
-Medium.create(user_id: chris.id, group_id: group_a.id, content: 'alices are the best')
-Medium.create(user_id: michelle.id, group_id: group_b.id, content: 'alices are the best')
+# yana_a = Member.create(user_id: yana.id, group_id: group_a.id, authority: 1)
+# yana_b = Member.create(user_id: yana.id, group_id: group_b.id, authority: 1)
+# chris_a = Member.create(user_id: chris.id, group_id: group_a.id, authority: 2)
+# # chris_b = Member.create(user_id: chris.id, group_id: group_a.id, authority: 1)
+# # michelle_a = Member.create(user_id: michelle.id, group_id: group_a.id, authority: 1)
+# michelle_b = Member.create(user_id: michelle.id, group_id: group_b.id, authority: 2)
+#
+# Medium.create(user_id: yana.id, group_id: group_a.id, content: 'alices are the best')
+# Medium.create(user_id: chris.id, group_id: group_a.id, content: 'alices are the best')
+# Medium.create(user_id: michelle.id, group_id: group_b.id, content: 'alices are the best')
 
 
 
