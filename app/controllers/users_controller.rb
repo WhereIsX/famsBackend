@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   def create
 
     user = User.create(user_params)
-    byebug
+    
     if user.valid?
       render json: {id: user.id, username: user.username}
     else
@@ -11,19 +11,6 @@ class UsersController < ApplicationController
     end
 
   end
-
-
-  # def create
-  #    @user = User.create(user_params)
-  #    byebug
-  #
-  #    if @user.valid?
-  #      render json: {id: @user.id, username: @user.username}
-  #    else
-  #      render json: {error: "WRONG"}, status: 422
-  #    end
-  #  end
-
 
 
   def update
