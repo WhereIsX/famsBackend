@@ -1,30 +1,29 @@
 class ApplicationController < ActionController::API
-  before_action :authorized
+  before_action :authorized, except: [:encode_token, :jwt_key]
+
+  def jwt_key
+    Rails.application.credentials.jwt[:key]
+  end
 
 
   def encode_token(payload)
     # payload => { beef: 'steak' }
-    JWT.encode(payload, '96b0e0b26f814dbdef5ec3c3a298657d')
+
+    JWT.encode(payload, jwt_key)
     # jwt string: "eyJhbGciOiJIUzI1NiJ9.eyJiZWVmIjoic3RlYWsifQ._IBTHTLGX35ZJWTCcY30tLmwU9arwdpNVxtVU0NpAuI"
   end
 
-  def decoded_token
-    if auth_header
-      token = auth_header.split(' ')[1]
-      begin
-        JWT.decode(token, 'my_s3cr3t', true, algorithm: 'HS256')
-      rescue JWT::DecodeError
-        nil
-      end
-    end
-  end
-
   def auth_header
-    # { 'Authorization': 'Bearer <token>' }
     request.headers['Authorization']
   end
 
-  def current_user
+  def decoded_token
+
+    JWT.decode(auth_header, jwt_key)
+  end
+
+  def current_user_nao
+    byebug
     if decoded_token
       # decoded_token=> [{"user_id"=>2}, {"alg"=>"HS256"}]
       # or nil if we can't decode the token
@@ -34,7 +33,7 @@ class ApplicationController < ActionController::API
   end
 
   def logged_in?
-    !!current_user
+    !!current_user_nao
   end
 
   def authorized
