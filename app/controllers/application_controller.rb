@@ -6,10 +6,7 @@ class ApplicationController < ActionController::API
   end
 
   def encode_token(payload)
-    # payload => { beef: 'steak' }
-
     JWT.encode(payload, jwt_key)
-    # jwt string: "eyJhbGciOiJIUzI1NiJ9.eyJiZWVmIjoic3RlYWsifQ._IBTHTLGX35ZJWTCcY30tLmwU9arwdpNVxtVU0NpAuI"
   end
 
   def auth_header
@@ -21,10 +18,7 @@ class ApplicationController < ActionController::API
   end
 
   def current_user_nao
-    byebug
     if decoded_token
-      # decoded_token=> [{"user_id"=>2}, {"alg"=>"HS256"}]
-      # or nil if we can't decode the token
       user_id = decoded_token[0]['user_id']
       @user = User.find_by(id: user_id)
     end

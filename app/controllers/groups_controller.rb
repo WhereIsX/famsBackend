@@ -9,10 +9,7 @@ class GroupsController < ApplicationController
   end
 
   def create
-
-    byebug
     group = Group.create(group_params)
-
     if group.valid?
       byebug
       Member.create(group_id: group.id, user_id: current_user_nao.id, authority: 1)
