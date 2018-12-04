@@ -1,10 +1,9 @@
 class ApplicationController < ActionController::API
-  before_action :authorized, except: [:encode_token, :jwt_key]
+  before_action :authorized
 
   def jwt_key
     Rails.application.credentials.jwt[:key]
   end
-
 
   def encode_token(payload)
     # payload => { beef: 'steak' }
@@ -18,7 +17,6 @@ class ApplicationController < ActionController::API
   end
 
   def decoded_token
-
     JWT.decode(auth_header, jwt_key)
   end
 

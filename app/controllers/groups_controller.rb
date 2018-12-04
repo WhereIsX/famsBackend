@@ -10,9 +10,12 @@ class GroupsController < ApplicationController
 
   def create
 
+    byebug
     group = Group.create(group_params)
+
     if group.valid?
-      Member.create(group_id: group.id, user_id: user.id, authority: 1)
+      byebug
+      Member.create(group_id: group.id, user_id: current_user_nao.id, authority: 1)
       render json: group
     else
       render json: group.errors.full_messages
@@ -36,6 +39,7 @@ class GroupsController < ApplicationController
   private
 
   def group_params
+
     params.permit(:name)
   end
 
