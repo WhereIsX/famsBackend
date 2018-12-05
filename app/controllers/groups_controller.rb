@@ -1,5 +1,24 @@
 class GroupsController < ApplicationController
 
+  def myGroups
+    
+    my_memberships = Members.find_by(user_id: current_user_nao.id)
+    my_groups = []
+
+    if my_memberships
+      my_groups_num = my_memberships.collect {|mem| mem.group_id }
+
+      my_groups_num.each { |group_num|
+        my_groups << Group.find(group_num)
+      }
+    end
+
+    render json: my_groups
+
+  end
+
+
+
   def index
     render json: Group.all
   end
@@ -11,7 +30,6 @@ class GroupsController < ApplicationController
   def create
     group = Group.create(group_params)
     if group.valid?
-      byebug
       Member.create(group_id: group.id, user_id: current_user_nao.id, authority: 1)
       render json: group
     else

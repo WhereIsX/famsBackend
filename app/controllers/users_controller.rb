@@ -10,10 +10,10 @@ class UsersController < ApplicationController
     else
       render json: user.errors.full_messages, status: :not_acceptable
     end
-
   end
 
   def profile
+    # byebug
     render json: { user: UserSerializer.new(current_user_nao) }, status: :accepted
   end
 
