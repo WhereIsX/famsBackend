@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
   before_action :authorized
+  serialization_scope :view_context
 
   def jwt_key
     Rails.application.credentials.jwt[:key]
@@ -17,8 +18,15 @@ class ApplicationController < ActionController::API
     JWT.decode(auth_header, jwt_key)
   end
 
-  def current_user_nao
-    # byebug
+  # def current_user
+  #
+  #   if decoded_token
+  #     user_id = decoded_token[0]['user_id']
+  #     @user = User.find_by(id: user_id)
+  #   end
+  # end
+
+  def current_user
     if decoded_token
       user_id = decoded_token[0]['user_id']
       @user = User.find_by(id: user_id)
@@ -26,7 +34,7 @@ class ApplicationController < ActionController::API
   end
 
   def logged_in?
-    !!current_user_nao
+    !!current_user
   end
 
   def authorized

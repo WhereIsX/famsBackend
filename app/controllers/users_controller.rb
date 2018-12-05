@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
-  skip_before_action :authorized, only: [:create]
+  skip_before_action :authorized, only: :create
+  # before_action :authorized, only: [:destroy, :profile]
 
   def create
-
     user = User.create(user_params)
     if user.valid?
       token = encode_token(user_id: user.id)
@@ -13,8 +13,7 @@ class UsersController < ApplicationController
   end
 
   def profile
-    # byebug
-    render json: { user: UserSerializer.new(current_user_nao) }, status: :accepted
+    render json: { user: UserSerializer.new(current_user) }, status: :accepted
   end
 
   def destroy
